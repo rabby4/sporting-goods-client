@@ -12,13 +12,16 @@ module.exports = {
 	theme: {
 		container: {
 			center: true,
-			padding: "2rem",
 			screens: {
-				"2xl": "1400px",
+				"2xl": "1240px",
 			},
 		},
 		extend: {
+			fontFamily: {
+				ralway: ["Raleway"],
+			},
 			colors: {
+				green: "#04b896",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
