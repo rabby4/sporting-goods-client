@@ -1,13 +1,14 @@
-import { Button } from "./components/ui/button"
+import { Outlet } from "react-router-dom"
+import Header from "./layout/Header"
+import Footer from "./layout/Footer"
 
 const App = () => {
-	const handleButton = () => {
-		console.log("clicked")
-	}
 	return (
-		<div>
-			<Button onClick={handleButton}>Click me</Button>
-		</div>
+		<>
+			<Header />
+			<Outlet />
+			<Footer />
+		</>
 	)
 }
 
