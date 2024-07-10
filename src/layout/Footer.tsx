@@ -87,6 +87,10 @@ const Footer = () => {
 							<span className="w-28 h-[2px] bg-green absolute"></span>
 							<div className="mt-5">
 								<h3 className="text-lg font-bold">Newsletter</h3>
+								<p>
+									Sign up for our newsletter and stay up-to-date with the latest
+									collection, the latest trends and the best deals!
+								</p>
 								<div className="flex w-full max-w-sm items-center space-x-2 mt-2">
 									<Input type="email" placeholder="Enter Your Email" />
 									<Button
