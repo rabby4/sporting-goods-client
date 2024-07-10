@@ -19,6 +19,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				ralway: ["Raleway"],
+				oswald: ["Oswald"],
 			},
 			colors: {
 				green: "#04b896",
@@ -77,7 +78,12 @@ module.exports = {
 			},
 		},
 		backgroundImage: {
-			"carousel-1": "url('https://i.ibb.co/wwZdj9B/showcace-home-img-5.jpg')",
+			"carousel-1":
+				"url('http://aboss2.demo.towerthemes.com/image/cache/catalog/slider/home2-slider1-1920x950.jpg')",
+			"carousel-2":
+				"url('https://ornaldo.themeftc.com/wp-content/uploads/2017/12/slider-3.jpg')",
+			"carousel-3":
+				"url('https://ornaldo.themeftc.com/wp-content/uploads/2017/12/slider2-1.jpg')",
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
