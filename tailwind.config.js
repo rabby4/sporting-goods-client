@@ -76,6 +76,9 @@ module.exports = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 		},
+		backgroundImage: {
+			"carousel-1": "url('https://i.ibb.co/wwZdj9B/showcace-home-img-5.jpg')",
+		},
 	},
 	plugins: [require("tailwindcss-animate")],
 }
