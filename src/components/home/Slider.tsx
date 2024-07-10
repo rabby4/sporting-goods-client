@@ -15,21 +15,22 @@ const Slider = () => {
 				<CarouselContent>
 					<CarouselItem>
 						<div
-							className="p-1 h-[calc(100vh-110px)] w-full flex justify-center items-center bg-carousel-1"
+							className="p-1 h-[calc(100vh-110px)] w-full  bg-carousel-1 bg-center bg-cover"
 							// style={{
 							// 	backgroundImage: new URL(
 							// 		"https://i.ibb.co/wwZdj9B/showcace-home-img-5.jpg"
 							// 	),
 							// }}
 						>
-							<img src="" alt="" />
-							<h1>this is heading</h1>
-							<h1>this is heading</h1>
-							<h1>this is heading</h1>
-							<h1>this is heading</h1>
-							<h1>this is heading</h1>
-							<h1>this is heading</h1>
-							<h1>this is heading</h1>
+							<div className="container">
+								<h1>this is heading</h1>
+								<h1>this is heading</h1>
+								<h1>this is heading</h1>
+								<h1>this is heading</h1>
+								<h1>this is heading</h1>
+								<h1>this is heading</h1>
+								<h1>this is heading</h1>
+							</div>
 						</div>
 					</CarouselItem>
 					{/* <CarouselItem>
