@@ -9,6 +9,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
+import { NavLink } from "react-router-dom"
 
 const Cart = () => {
 	return (
@@ -68,7 +69,9 @@ const Cart = () => {
 						<p className="tracking-wider flex justify-between">
 							<strong>Total: </strong> <span>$1000</span>
 						</p>
-						<Button className="bg-green">PROCEED TO CHECKOUT</Button>
+						<NavLink to={"/checkout"}>
+							<Button className="bg-green">PROCEED TO CHECKOUT</Button>
+						</NavLink>
 					</div>
 				</div>
 			</div>
