@@ -76,3 +76,12 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+.action-buttons {
+	translate: 28px 55px;
+	transition: 0.7s;
+}
+
+.action-hover:hover .action-buttons {
+	translate: 28px -10px;
+}

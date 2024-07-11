@@ -4,6 +4,7 @@ import {
 	MdOutlineSportsTennis,
 } from "react-icons/md"
 import { IoIosFootball } from "react-icons/io"
+import { GiBaseballGlove } from "react-icons/gi"
 
 import { NavLink } from "react-router-dom"
 
@@ -45,7 +46,7 @@ const Categories = () => {
 					</NavLink>
 					<NavLink to={"/"} className="flex flex-col items-center space-y-4">
 						<div className=" border-2 border-gray-400 hover:border-green text-gray-500 hover:text-green duration-300 rounded-full size-32 flex justify-center items-center cursor-pointer">
-							<MdOutlineSportsTennis className="text-6xl" />
+							<GiBaseballGlove className="text-6xl" />
 						</div>
 						<h5 className="text-xl font-semibold uppercase italic">
 							Accessories

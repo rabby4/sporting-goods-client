@@ -84,6 +84,8 @@ module.exports = {
 				"url('https://ornaldo.themeftc.com/wp-content/uploads/2017/12/slider-3.jpg')",
 			"carousel-3":
 				"url('https://ornaldo.themeftc.com/wp-content/uploads/2017/12/slider2-1.jpg')",
+			"about-us":
+				"url('https://ornaldo.themeftc.com/wp-content/uploads/2017/12/banner-shop1.jpg')",
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
