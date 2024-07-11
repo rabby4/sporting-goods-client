@@ -1,3 +1,4 @@
+import { Star, StarIcon } from "lucide-react"
 import { Button } from "../ui/button"
 import {
 	Card,
@@ -6,7 +7,20 @@ import {
 	CardHeader,
 	CardTitle,
 } from "../ui/card"
-import Rating from "react-rating"
+
+const renderStars = (rating: number) => {
+	const stars = []
+	for (let i = 1; i <= 10; i++) {
+		stars.push(
+			i <= rating ? (
+				<Star key={i} className="text-yellow-500" />
+			) : (
+				<StarIcon key={i} className="text-gray-500" />
+			)
+		)
+	}
+	return stars
+}
 
 const FeatureProducts = () => {
 	return (
@@ -47,7 +61,8 @@ const FeatureProducts = () => {
 								</p>
 								<p>
 									{/* @ts-expect-error their is no type declaration file for react rating*/}
-									<Rating fullSymbol="fa fa-star fa-2x" readonly />
+
+									{renderStars}
 								</p>
 								<div className="flex justify-between">
 									<p className=" tracking-wider">

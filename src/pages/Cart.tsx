@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
 import {
 	Table,
 	TableBody,
@@ -15,7 +16,7 @@ const Cart = () => {
 			<div className="bg-about-us h-64 flex justify-center items-center">
 				<h1 className="text-5xl font-oswald text-white">My Cart</h1>
 			</div>
-			<div className="container my-20 grid grid-cols-3">
+			<div className="container my-20 grid grid-cols-3 gap-6">
 				<div className="col-span-2">
 					<Table>
 						<TableHeader>
@@ -35,7 +36,7 @@ const Cart = () => {
 										className="size-20"
 									/>
 								</TableCell>
-								<TableCell>Golf hand gloves</TableCell>
+								<TableCell className="font-medium">Golf hand gloves</TableCell>
 								<TableCell>
 									<Input className="w-[100px]" type="number" />
 								</TableCell>
@@ -46,8 +47,30 @@ const Cart = () => {
 							</TableRow>
 						</TableBody>
 					</Table>
+					<div className="flex w-full max-w-sm items-center space-x-2 mt-5">
+						<Input type="text" placeholder="Enter Coupon Code" />
+						<Button type="submit" className="bg-green">
+							Apply Coupon
+						</Button>
+					</div>
 				</div>
-				<div>cart total</div>
+				<div>
+					<div className="space-y-8 flex flex-col p-10 border-2">
+						<h2 className="text-2xl font-oswald tracking-wider">Cart Total</h2>
+						<Separator />
+						<p className="tracking-wider flex justify-between">
+							<strong>Subtotal: </strong> <span>$999</span>
+						</p>
+						<p className="tracking-wider flex justify-between">
+							<strong>VAT 15%: </strong> <span>$15</span>
+						</p>
+						<Separator />
+						<p className="tracking-wider flex justify-between">
+							<strong>Total: </strong> <span>$1000</span>
+						</p>
+						<Button className="bg-green">PROCEED TO CHECKOUT</Button>
+					</div>
+				</div>
 			</div>
 		</div>
 	)
