@@ -143,7 +143,10 @@ const Header = () => {
 									</NavLink>
 								</NavigationMenuItem>
 								<NavigationMenuItem className="relative">
-									<NavLink to={"/"} className={navigationMenuTriggerStyle()}>
+									<NavLink
+										to={"/cart"}
+										className={navigationMenuTriggerStyle()}
+									>
 										<CartIcon />
 										<span className="size-5 flex items-center justify-center rounded-full text-sm text-white bg-green absolute right-2 -top-[2px]">
 											0
