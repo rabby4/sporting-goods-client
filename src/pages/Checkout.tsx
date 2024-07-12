@@ -26,7 +26,7 @@ const Checkout = () => {
 						<div className="space-y-10">
 							<div>
 								<h2 className="text-2xl font-medium">
-									Contact Us for Any Questions
+									Delivery Address Information
 								</h2>
 							</div>
 							<div className="space-y-5">
@@ -169,7 +169,10 @@ const Checkout = () => {
 								</label>
 							</div>
 							<div>
-								<Button className="w-full bg-green hover:bg-black">
+								<Button
+									type="submit"
+									className="w-full bg-green hover:bg-black"
+								>
 									Place Order
 								</Button>
 							</div>

@@ -48,7 +48,7 @@ const Header = () => {
 									</NavigationMenuItem>
 									<NavigationMenuItem>
 										<NavLink
-											to={"/products"}
+											to={"/manage-product"}
 											className={navigationMenuTriggerStyle()}
 										>
 											Manage Product
@@ -103,7 +103,7 @@ const Header = () => {
 											</NavigationMenuItem>
 											<NavigationMenuItem>
 												<NavLink
-													to={"/products"}
+													to={"/manage-product"}
 													className={navigationMenuTriggerStyle()}
 												>
 													Manage Product
