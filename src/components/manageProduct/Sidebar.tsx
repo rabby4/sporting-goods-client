@@ -21,9 +21,6 @@ const Sidebar = () => {
 							>
 								<ShoppingCart className="h-4 w-4" />
 								Create Product
-								{/* <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-									6
-								</Badge> */}
 							</NavLink>
 						</nav>
 					</div>

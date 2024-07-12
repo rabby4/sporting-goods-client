@@ -1,6 +1,7 @@
 import App from "@/App"
 import CreateProduct from "@/components/manageProduct/CreateProduct"
 import Manage from "@/components/manageProduct/Manage"
+import UpdateProduct from "@/components/manageProduct/UpdateProduct"
 import About from "@/pages/About"
 import AllProducts from "@/pages/AllProducts"
 import Cart from "@/pages/Cart"
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
 					{
 						path: "create-product",
 						element: <CreateProduct />,
+					},
+					{
+						path: "update-product/:id",
+						element: <UpdateProduct />,
 					},
 				],
 			},

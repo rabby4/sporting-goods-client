@@ -16,14 +16,14 @@ const Slider = () => {
 			>
 				<CarouselContent>
 					<CarouselItem>
-						<div className="p-1 lg:h-[calc(100vh-110px)] md:h-[500px] h-[300px] w-full flex items-center bg-carousel-1 bg-cover bg-no-repeat md:px-10 px-5">
+						<div className="p-1 lg:h-[calc(100vh-110px)] md:h-[500px] h-[300px] w-full flex items-center bg-carousel-3 bg-cover bg-no-repeat md:px-10 px-5">
 							<div className="container md:space-y-5">
 								<div className="flex gap-2">
-									<h1 className="md:text-2xl text-lg text-white md:font-bold font-normal font-oswald uppercase ">
+									<h1 className="md:text-2xl text-lg text-white md:font-bold font-normal font-oswald uppercase  ">
 										Upto
 									</h1>
 									<h2 className="md:text-6xl text-4xl text-yellow-400 font-bold font-oswald uppercase ">
-										50
+										40
 									</h2>
 									<div className="flex flex-col items-center">
 										<p className="md:text-4xl text-base text-yellow-400 font-bold font-oswald uppercase">
@@ -36,7 +36,7 @@ const Slider = () => {
 								</div>
 								<h1 className="md:text-8xl text-6xl text-white font-oswald">
 									<span className="font-light">RUGBY</span> <br />
-									<span className="font-bold">FOOTBALL</span>
+									<span className="font-bold">HELMET</span>
 								</h1>
 								<Button className="bg-white text-black rounded-full hover:text-white md:px-8 px-6 md:font-bold md:text-sm md:mt-0 mt-5">
 									<NavLink to={"/products"}>Shop Now</NavLink>
@@ -74,14 +74,14 @@ const Slider = () => {
 						</div>
 					</CarouselItem>
 					<CarouselItem>
-						<div className="p-1 lg:h-[calc(100vh-110px)] md:h-[500px] h-[300px] w-full flex items-center bg-carousel-3 bg-cover bg-no-repeat md:px-10 px-5">
+						<div className="p-1 lg:h-[calc(100vh-110px)] md:h-[500px] h-[300px] w-full flex items-center bg-carousel-1 bg-cover bg-no-repeat md:px-10 px-5">
 							<div className="container md:space-y-5">
 								<div className="flex gap-2">
-									<h1 className="md:text-2xl text-lg text-white md:font-bold font-normal font-oswald uppercase  ">
+									<h1 className="md:text-2xl text-lg text-white md:font-bold font-normal font-oswald uppercase ">
 										Upto
 									</h1>
 									<h2 className="md:text-6xl text-4xl text-yellow-400 font-bold font-oswald uppercase ">
-										40
+										50
 									</h2>
 									<div className="flex flex-col items-center">
 										<p className="md:text-4xl text-base text-yellow-400 font-bold font-oswald uppercase">
@@ -94,7 +94,7 @@ const Slider = () => {
 								</div>
 								<h1 className="md:text-8xl text-6xl text-white font-oswald">
 									<span className="font-light">RUGBY</span> <br />
-									<span className="font-bold">HELMET</span>
+									<span className="font-bold">FOOTBALL</span>
 								</h1>
 								<Button className="bg-white text-black rounded-full hover:text-white md:px-8 px-6 md:font-bold md:text-sm md:mt-0 mt-5">
 									<NavLink to={"/products"}>Shop Now</NavLink>

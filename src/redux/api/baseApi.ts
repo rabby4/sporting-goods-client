@@ -23,14 +23,24 @@ export const baseApi = createApi({
 					method: "GET",
 				}
 			},
+			providesTags: ["product"],
 		}),
 		postProduct: builder.mutation({
 			query: (data) => {
-				console.log(data)
 				return {
 					url: "/products",
 					method: "POST",
 					body: data,
+				}
+			},
+			invalidatesTags: ["product"],
+		}),
+		updateProduct: builder.mutation({
+			query: (options) => {
+				return {
+					url: `/products/${options.id}`,
+					method: "PUT",
+					body: options.data,
 				}
 			},
 			invalidatesTags: ["product"],

@@ -8,11 +8,19 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card"
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Slider } from "@/components/ui/slider"
 import baseApi from "@/redux/api/baseApi"
-import { Star } from "lucide-react"
+import { ListFilter, Star } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
 // const renderStars = (rating: number) => {
@@ -31,7 +39,7 @@ import { NavLink } from "react-router-dom"
 
 const AllProducts = () => {
 	const { data: products } = baseApi.useGetProductQuery(undefined)
-	console.log(products?.data)
+
 	return (
 		<div className="mb-20">
 			<div className="bg-about-us h-64 flex justify-center items-center">
@@ -40,16 +48,6 @@ const AllProducts = () => {
 			<div className="container">
 				<div className="grid grid-cols-4 gap-10 mt-10">
 					<div className="col-span-1 space-y-5">
-						<div className="flex flex-col gap-3 w-full items-center space-x-2 mt-2">
-							<h2 className="text-lg self-start font-medium">
-								Product by Search
-							</h2>
-							<Input type="text" placeholder="Search here..." />
-							<Button type="submit" className="bg-green  w-full !ml-0">
-								Search Product
-							</Button>
-						</div>
-						<Separator />
 						<div className="flex flex-col gap-3">
 							<h2 className="text-lg self-start font-medium">
 								Filter by Price
@@ -112,6 +110,41 @@ const AllProducts = () => {
 						<Button className="w-full bg-green">Reset Filter</Button>
 					</div>
 					<div className="col-span-3">
+						<div className="mb-5 flex items-end justify-between">
+							<div>
+								<h2 className="text-lg self-start font-medium">
+									Product by Search
+								</h2>
+								<div className="flex w-full max-w-sm items-center space-x-2 mt-2">
+									<Input type="text" placeholder="Search Products..." />
+									<Button type="submit" className="bg-green ">
+										Search
+									</Button>
+								</div>
+							</div>
+							<div>
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<Button variant="outline" size="lg" className="h-10 gap-1">
+											<ListFilter className="h-3.5 w-3.5" />
+											<span className="sr-only sm:not-sr-only sm:whitespace-nowrap text-md">
+												Sort Product
+											</span>
+										</Button>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent align="end">
+										<DropdownMenuLabel>Sort by</DropdownMenuLabel>
+										<DropdownMenuSeparator />
+										<DropdownMenuCheckboxItem>
+											Ascending To Descending
+										</DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem>
+											Descending To Ascending
+										</DropdownMenuCheckboxItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</div>
+						</div>
 						<div className="grid grid-cols-3 gap-5">
 							{products?.data?.map((product: any) => (
 								<Card

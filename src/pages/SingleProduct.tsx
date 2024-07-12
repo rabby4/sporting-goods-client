@@ -16,7 +16,7 @@ const SingleProduct = () => {
 		return <p>Loading...</p>
 	}
 	const product = singleProduct?.data
-	console.log(product)
+
 	return (
 		<div className="my-10">
 			<div className="container">
