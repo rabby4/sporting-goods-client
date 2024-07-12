@@ -31,6 +31,16 @@ const About = () => {
 							enthusiasts, and sports lovers with the best products to elevate
 							their performance and enjoyment.
 						</p>
+						<p>
+							Ornald was born out of a love for sports and a desire to create a
+							one-stop-shop for all sporting needs. Our founders, avid sports
+							enthusiasts themselves, recognized the need for a store that not
+							only offers a wide range of products but also values quality and
+							customer satisfaction above all else. Today, Ornald continues to
+							grow, driven by a community of passionate customers who inspire us
+							to keep pushing the boundaries of what is possible in the world of
+							sports retail.
+						</p>
 					</div>
 				</div>
 				<div className="grid grid-cols-3 mt-20 justify-between border border-gray-200 py-10 rounded-md">

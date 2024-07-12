@@ -8,10 +8,18 @@ export const baseApi = createApi({
 	tagTypes: ["product"],
 	endpoints: (builder) => ({
 		getProduct: builder.query({
-			query: () => {
-				return {
-					url: "/products",
-					method: "GET",
+			query: (options) => {
+				console.log(options)
+				if (!options) {
+					return {
+						url: "/products",
+						method: "GET",
+					}
+				} else {
+					return {
+						url: `/products?searchTerms=${options}`,
+						method: "GET",
+					}
 				}
 			},
 			providesTags: ["product"],

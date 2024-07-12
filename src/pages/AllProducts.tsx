@@ -21,6 +21,8 @@ import { Separator } from "@/components/ui/separator"
 import { Slider } from "@/components/ui/slider"
 import baseApi from "@/redux/api/baseApi"
 import { ListFilter, Star } from "lucide-react"
+import { useState } from "react"
+import { FieldValues, useForm } from "react-hook-form"
 import { NavLink } from "react-router-dom"
 
 // const renderStars = (rating: number) => {
@@ -38,7 +40,14 @@ import { NavLink } from "react-router-dom"
 // }
 
 const AllProducts = () => {
-	const { data: products } = baseApi.useGetProductQuery(undefined)
+	const [search, setSearch] = useState("")
+	const { data: products } = baseApi.useGetProductQuery(search)
+
+	const { register, handleSubmit } = useForm()
+	const onSubmit = async (data: FieldValues) => {
+		console.log(data)
+		setSearch(data.searchTerms)
+	}
 
 	return (
 		<div className="mb-20">
@@ -115,12 +124,20 @@ const AllProducts = () => {
 								<h2 className="text-lg self-start font-medium">
 									Product by Search
 								</h2>
-								<div className="flex w-full max-w-sm items-center space-x-2 mt-2">
-									<Input type="text" placeholder="Search Products..." />
+								<form
+									// onBlur={(e) => setSearch(e.target.value)}
+									onSubmit={handleSubmit(onSubmit)}
+									className="flex w-full max-w-sm items-center space-x-2 mt-2"
+								>
+									<Input
+										type="text"
+										placeholder="Search Products..."
+										{...register("searchTerms")}
+									/>
 									<Button type="submit" className="bg-green ">
 										Search
 									</Button>
-								</div>
+								</form>
 							</div>
 							<div>
 								<DropdownMenu>
