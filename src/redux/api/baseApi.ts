@@ -16,6 +16,14 @@ export const baseApi = createApi({
 			},
 			providesTags: ["product"],
 		}),
+		getSingleProduct: builder.query({
+			query: (id) => {
+				return {
+					url: `/products/${id}`,
+					method: "GET",
+				}
+			},
+		}),
 		postProduct: builder.mutation({
 			query: (data) => {
 				console.log(data)

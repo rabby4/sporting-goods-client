@@ -9,22 +9,25 @@ import {
 	CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { Slider } from "@/components/ui/slider"
 import baseApi from "@/redux/api/baseApi"
-import { Star, StarIcon } from "lucide-react"
+import { Star } from "lucide-react"
+import { NavLink } from "react-router-dom"
 
-const renderStars = (rating: number) => {
-	const stars = []
-	for (let i = 1; i <= 10; i++) {
-		stars.push(
-			i <= rating ? (
-				<Star key={i} className="text-yellow-500" />
-			) : (
-				<StarIcon key={i} className="text-gray-500" />
-			)
-		)
-	}
-	return stars
-}
+// const renderStars = (rating: number) => {
+// 	const stars = []
+// 	for (let i = 1; i <= 10; i++) {
+// 		stars.push(
+// 			i <= rating ? (
+// 				<Star key={i} className="text-yellow-500" />
+// 			) : (
+// 				<StarIcon key={i} className="text-gray-500" />
+// 			)
+// 		)
+// 	}
+// 	return stars
+// }
 
 const AllProducts = () => {
 	const { data: products } = baseApi.useGetProductQuery(undefined)
@@ -35,19 +38,86 @@ const AllProducts = () => {
 				<h1 className="text-5xl font-oswald text-white">Shop Page</h1>
 			</div>
 			<div className="container">
-				<div className="grid grid-cols-4 gap-5 mt-10">
-					<div className="col-span-1">
+				<div className="grid grid-cols-4 gap-10 mt-10">
+					<div className="col-span-1 space-y-5">
 						<div className="flex flex-col gap-3 w-full items-center space-x-2 mt-2">
+							<h2 className="text-lg self-start font-medium">
+								Product by Search
+							</h2>
 							<Input type="text" placeholder="Search here..." />
 							<Button type="submit" className="bg-green  w-full !ml-0">
-								Search
+								Search Product
 							</Button>
 						</div>
+						<Separator />
+						<div className="flex flex-col gap-3">
+							<h2 className="text-lg self-start font-medium">
+								Filter by Price
+							</h2>
+							<div className="flex gap-4">
+								<p>0</p>
+								<Slider defaultValue={[33]} max={100} step={1} />
+								<p>100</p>
+							</div>
+						</div>
+						<Separator />
+						<div className="flex flex-col gap-3">
+							<h2 className="text-lg self-start font-medium">
+								Product Categories
+							</h2>
+							<div>
+								<ul className="grid gap-2">
+									<li className="flex items-center justify-between">
+										<span className="text-muted-foreground">Apple</span>
+										<Badge variant={"outline"}>5</Badge>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<Separator />
+						<div className="flex flex-col gap-3">
+							<h2 className="text-lg self-start font-medium">Product Brands</h2>
+							<div>
+								<ul className="grid gap-2">
+									<li className="flex items-center justify-between">
+										<span className="text-muted-foreground">Apple</span>
+										<Badge variant={"outline"}>5</Badge>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<Separator />
+						<div className="flex flex-col gap-3">
+							<h2 className="text-lg self-start font-medium">
+								Filter by Rating
+							</h2>
+							<div>
+								<ul className="grid gap-2">
+									<li className="flex items-center">
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+									</li>
+									<li className="flex items-center">
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+										<Star className="text-yellow-500" />
+									</li>
+								</ul>
+							</div>
+						</div>
+						<Button className="w-full bg-green">Reset Filter</Button>
 					</div>
 					<div className="col-span-3">
 						<div className="grid grid-cols-3 gap-5">
 							{products?.data?.map((product: any) => (
-								<Card className="action-hover overflow-hidden">
+								<Card
+									className="action-hover overflow-hidden"
+									key={product._id}
+								>
 									<CardHeader className="p-0 relative ">
 										<Badge className="bg-green justify-center italic tracking-wider -rotate-45 rotate-badge">
 											<strong>Brand: </strong> <span>{product.brand}</span>
@@ -61,7 +131,9 @@ const AllProducts = () => {
 												Add To Cart
 											</Button>
 											<Button className="flex-1 rounded-none gap-3">
-												Details View
+												<NavLink to={`/product-details/${product._id}`}>
+													Details View
+												</NavLink>
 											</Button>
 										</div>
 									</CardHeader>
@@ -88,7 +160,7 @@ const AllProducts = () => {
 													<span>{product.quantity}</span>
 												</p>
 												<p className="text-green tracking-wider">
-													<strong>$ </strong> <span>{product.price}</span>
+													<strong>$</strong> <span>{product.price}</span>
 												</p>
 											</div>
 										</div>
