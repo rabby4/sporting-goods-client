@@ -25,6 +25,7 @@ export const baseApi = createApi({
 					body: data,
 				}
 			},
+			invalidatesTags: ["product"],
 		}),
 	}),
 })

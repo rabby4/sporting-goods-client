@@ -4,13 +4,13 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Separator } from "../ui/separator"
 import { Textarea } from "../ui/textarea"
-import { useForm } from "react-hook-form"
+import { FieldValues, useForm } from "react-hook-form"
 
 const CreateProduct = () => {
 	const { register, handleSubmit } = useForm()
 	const [addProduct] = baseApi.usePostProductMutation()
 
-	const onSubmit = async (data) => {
+	const onSubmit = async (data: FieldValues) => {
 		console.log(data)
 		const res = await addProduct(data).unwrap()
 		if (res.success) {

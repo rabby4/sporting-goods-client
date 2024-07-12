@@ -124,3 +124,6 @@
 .social-profile ul li a {
 	transition: 0.3s;
 }
+.rotate-badge {
+	translate: -90px 60px;
+}
