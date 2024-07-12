@@ -1,5 +1,6 @@
 import App from "@/App"
 import CreateProduct from "@/components/manageProduct/CreateProduct"
+import Manage from "@/components/manageProduct/Manage"
 import About from "@/pages/About"
 import AllProducts from "@/pages/AllProducts"
 import Cart from "@/pages/Cart"
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
-						element: <ManageProduct />,
+						element: <Manage />,
 					},
 					{
 						path: "create-product",
