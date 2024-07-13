@@ -8,17 +8,22 @@ export const baseApi = createApi({
 	tagTypes: ["product"],
 	endpoints: (builder) => ({
 		getProduct: builder.query({
-			query: (options) => {
-				if (!options) {
-					return {
-						url: "/products",
-						method: "GET",
-					}
-				} else {
-					return {
-						url: `/products?searchTerms=${options}`,
-						method: "GET",
-					}
+			query: (query) => {
+				const { searchTerm, sort } = query || {}
+				let url = "/products"
+
+				if (searchTerm) {
+					url += `?searchTerm=${query.searchTerm}`
+				}
+
+				if (sort) {
+					const sortValue = sort === "descending" ? "-price" : "price"
+					url += searchTerm ? `&sort=${sortValue}` : `?sort=${sortValue}`
+				}
+
+				return {
+					url,
+					method: "GET",
 				}
 			},
 			providesTags: ["product"],

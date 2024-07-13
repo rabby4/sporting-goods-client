@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { useAppSelector } from "@/redux/hook"
+import { NavLink } from "react-router-dom"
 
 const ThankYou = () => {
 	const checkoutData = useAppSelector((state) => state.product.data)
@@ -19,7 +20,9 @@ const ThankYou = () => {
 							<p className="text-sm text-muted-foreground">
 								your order placed successfully. now you can go home page.
 							</p>
-							<Button className="mt-4 bg-green">Go To Home</Button>
+							<NavLink to={"/"}>
+								<Button className="mt-4 bg-green">Go To Home</Button>
+							</NavLink>
 						</div>
 					</div>
 				</main>

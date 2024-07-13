@@ -9,62 +9,134 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card"
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Slider } from "@/components/ui/slider"
 import baseApi from "@/redux/api/baseApi"
-import { ListFilter, Star } from "lucide-react"
-import { useState } from "react"
-import { FieldValues, useForm } from "react-hook-form"
+import { Star } from "lucide-react"
+import { SetStateAction, useState } from "react"
 import { NavLink } from "react-router-dom"
 
-// const renderStars = (rating: number) => {
-// 	const stars = []
-// 	for (let i = 1; i <= 10; i++) {
-// 		stars.push(
-// 			i <= rating ? (
-// 				<Star key={i} className="text-yellow-500" />
-// 			) : (
-// 				<StarIcon key={i} className="text-gray-500" />
-// 			)
-// 		)
-// 	}
-// 	return stars
-// }
-
 const AllProducts = () => {
-	const [search, setSearch] = useState("")
-	const [sorting, setSorting] = useState("ascending")
-	const { data: products, isLoading } = baseApi.useGetProductQuery(search)
+	const [selectedSort, setSelectedSort] = useState("all")
+	const [searchTerm, setSearchTerm] = useState("")
+	const [selectedCategory, setSelectedCategory] = useState("all")
+	const [selectedBrand, setSelectedBrand] = useState("all")
+	const [selectedPriceRange, setSelectedPriceRange] = useState("all")
+	const [selectedRating, setSelectedRating] = useState("all")
 
-	const { register, handleSubmit } = useForm()
-	const onSubmit = async (data: FieldValues) => {
-		console.log(data)
-		setSearch(data.searchTerms)
-	}
-	if (isLoading) {
-		return <p>loading...</p>
-	}
-
-	const productData = products?.data ?? []
-	const sortProduct = [...productData]
-	console.log(sortProduct)
-
-	sortProduct?.sort((a: any, b: any) => {
-		if (sorting === "ascending") {
-			return a.name > b.name ? 1 : -1
-		} else {
-			return a.name < b.name ? 1 : -1
+	const getMinPrice = (range: string) => {
+		switch (range) {
+			case "under50":
+				return 0
+			case "50to100":
+				return 50
+			case "over100":
+				return 100
+			default:
+				return undefined
 		}
+	}
+
+	const getMaxPrice = (range: string) => {
+		switch (range) {
+			case "under50":
+				return 50
+			case "50to100":
+				return 100
+			case "over100":
+				return undefined
+			default:
+				return undefined
+		}
+	}
+
+	const { data: products } = baseApi.useGetProductQuery({
+		sort: selectedSort,
+		searchTerm: searchTerm,
+		category: selectedCategory !== "all" ? selectedCategory : undefined,
+		brand: selectedBrand !== "all" ? selectedBrand : undefined,
+		minPrice: getMinPrice(selectedPriceRange),
+		maxPrice: getMaxPrice(selectedPriceRange),
+		minRating: selectedRating !== "all" ? parseInt(selectedRating) : undefined,
 	})
+
+	const handleSelectChange = (event: { target: { value: any } }) => {
+		const sortValue = event.target.value
+		setSelectedSort(sortValue)
+	}
+
+	const handleInputChange = (event: {
+		target: { value: SetStateAction<string> }
+	}) => {
+		setSearchTerm(event.target.value)
+	}
+
+	const filterProducts = (products: any) => {
+		let filteredProducts = [...products]
+
+		if (selectedCategory !== "all") {
+			filteredProducts = filteredProducts.filter(
+				(product) => product.category === selectedCategory
+			)
+		}
+
+		if (selectedBrand !== "all") {
+			filteredProducts = filteredProducts.filter(
+				(product) => product.brand === selectedBrand
+			)
+		}
+
+		if (selectedPriceRange !== "all") {
+			const minPrice = getMinPrice(selectedPriceRange)
+			const maxPrice = getMaxPrice(selectedPriceRange)
+			filteredProducts = filteredProducts.filter((product) => {
+				const price = product.price
+				return (
+					(!minPrice || price >= minPrice) && (!maxPrice || price <= maxPrice)
+				)
+			})
+		}
+
+		if (selectedRating !== "all") {
+			filteredProducts = filteredProducts.filter((product) => {
+				const rating = product.rating
+				return rating === parseInt(selectedRating)
+			})
+		}
+
+		return filteredProducts
+	}
+
+	const sortProducts = (products: any[], sortCriteria: string) => {
+		const sortedProducts = [...products]
+
+		switch (sortCriteria) {
+			case "priceLow":
+				sortedProducts.sort((a, b) => a.price - b.price)
+				break
+			case "priceHigh":
+				sortedProducts.sort((a, b) => b.price - a.price)
+				break
+			default:
+				break
+		}
+
+		return sortedProducts
+	}
+
+	const filteredAndSortedProducts = sortProducts(
+		filterProducts(products?.data || []),
+		selectedSort
+	)
+
+	const clearFilters = () => {
+		setSelectedCategory("all")
+		setSelectedBrand("all")
+		setSelectedPriceRange("all")
+		setSelectedRating("all")
+		setSearchTerm("")
+		setSelectedSort("all")
+	}
 
 	return (
 		<div className="mb-20">
@@ -78,10 +150,16 @@ const AllProducts = () => {
 							<h2 className="text-lg self-start font-medium">
 								Filter by Price
 							</h2>
-							<div className="flex gap-4">
-								<p>0</p>
-								<Slider defaultValue={[33]} max={100} step={1} />
-								<p>100</p>
+							<div className="w-full md:w-auto mb-2 md:mb-0 rounded-full">
+								<select
+									value={selectedSort}
+									onChange={handleSelectChange}
+									className="border py-2 px-4 w-full"
+								>
+									<option value="all">Sort by...</option>
+									<option value="priceLow">Price: Low to High</option>
+									<option value="priceHigh">Price: High to Low</option>
+								</select>
 							</div>
 						</div>
 						<Separator />
@@ -89,25 +167,53 @@ const AllProducts = () => {
 							<h2 className="text-lg self-start font-medium">
 								Product Categories
 							</h2>
-							<div>
-								<ul className="grid gap-2">
-									<li className="flex items-center justify-between">
-										<span className="text-muted-foreground">Apple</span>
-										<Badge variant={"outline"}>5</Badge>
-									</li>
-								</ul>
+
+							<div className="w-full rounded-full md:w-auto mb-2 md:mb-0">
+								<select
+									value={selectedCategory}
+									onChange={(e) => setSelectedCategory(e.target.value)}
+									className="border py-2 px-4 w-full "
+								>
+									<option value="all">All Sports</option>
+									<option value="fitness">Fitness</option>
+									<option value="football">Football</option>
+									<option value="accessories">Accessories</option>
+									<option value="running">Running</option>
+									<option value="soccer">Soccer</option>
+									<option value="tennis">Tennis</option>
+									<option value="basketball">Basketball</option>
+									<option value="cycling">Cycling</option>
+									<option value="golf">Golf</option>
+									<option value="swimming">Swimming</option>
+									<option value="cricket">Cricket</option>
+									<option value="badminton">Badminton</option>
+								</select>
 							</div>
 						</div>
 						<Separator />
 						<div className="flex flex-col gap-3">
 							<h2 className="text-lg self-start font-medium">Product Brands</h2>
-							<div>
-								<ul className="grid gap-2">
-									<li className="flex items-center justify-between">
-										<span className="text-muted-foreground">Apple</span>
-										<Badge variant={"outline"}>5</Badge>
-									</li>
-								</ul>
+
+							<div className="w-full md:w-auto mb-2 md:mb-0">
+								<select
+									value={selectedBrand}
+									onChange={(e) => setSelectedBrand(e.target.value)}
+									className="border py-2 px-4 w-full cursor-pointer"
+								>
+									<option value="all">All Brands</option>
+									<option value="nike">Nike</option>
+									<option value="adidas">Adidas</option>
+									<option value="puma">Puma</option>
+									<option value="under-armour">Under Armour</option>
+									<option value="reebok">Reebok</option>
+									<option value="asics">Asics</option>
+									<option value="new-balance">New Balance</option>
+									<option value="fila">Fila</option>
+									<option value="mizuno">Mizuno</option>
+									<option value="salomon">Salomon</option>
+									<option value="oakley">Oakley</option>
+									<option value="umbro">Umbro</option>
+								</select>
 							</div>
 						</div>
 						<Separator />
@@ -133,7 +239,10 @@ const AllProducts = () => {
 								</ul>
 							</div>
 						</div>
-						<Button className="w-full bg-green">Reset Filter</Button>
+
+						<Button onClick={clearFilters} className="w-full bg-green">
+							Reset Filter
+						</Button>
 					</div>
 					<div className="lg:col-span-3 col-span-2">
 						<div className="mb-5 flex items-end justify-between md:mt-0 mt-5">
@@ -141,51 +250,34 @@ const AllProducts = () => {
 								<h2 className="text-lg self-start font-medium">
 									Product by Search
 								</h2>
+
 								<form
-									onSubmit={handleSubmit(onSubmit)}
+									onSubmit={(e) => e.preventDefault()}
 									className="flex w-full max-w-sm items-center space-x-2 mt-2"
 								>
 									<Input
 										type="text"
 										placeholder="Search Products..."
-										{...register("searchTerms")}
+										value={searchTerm}
+										onChange={handleInputChange}
 									/>
-									<Button type="submit" className="bg-green ">
-										Search
-									</Button>
+									<Button className="bg-green ">Search</Button>
 								</form>
 							</div>
 							<div>
-								<DropdownMenu>
-									<DropdownMenuTrigger asChild>
-										<Button variant="outline" size="lg" className="h-10 gap-1">
-											<ListFilter className="h-3.5 w-3.5" />
-											<span className="sr-only sm:not-sr-only sm:whitespace-nowrap text-md">
-												Sort Product
-											</span>
-										</Button>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent align="end">
-										<DropdownMenuLabel>Sort by</DropdownMenuLabel>
-										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem
-											checked={sorting === "ascending"}
-											onCheckedChange={() => setSorting("ascending")}
-										>
-											Ascending To Descending
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem
-											checked={sorting === "descending"}
-											onCheckedChange={() => setSorting("descending")}
-										>
-											Descending To Ascending
-										</DropdownMenuCheckboxItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
+								<select
+									value={selectedSort}
+									onChange={handleSelectChange}
+									className="border py-2 px-4 w-full"
+								>
+									<option value="all">Sort by...</option>
+									<option value="priceLow">Price: Low to High</option>
+									<option value="priceHigh">Price: High to Low</option>
+								</select>
 							</div>
 						</div>
 						<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
-							{sortProduct?.map((product: any) => (
+							{filteredAndSortedProducts?.map((product: any) => (
 								<Card
 									className="action-hover overflow-hidden"
 									key={product._id}
@@ -194,10 +286,7 @@ const AllProducts = () => {
 										<Badge className="bg-green justify-center italic tracking-wider -rotate-45 rotate-badge">
 											<strong>Brand: </strong> <span>{product.brand}</span>
 										</Badge>
-										<img
-											src="https://ornaldo.themeftc.com/wp-content/uploads/2021/03/19-2-548x548.jpg"
-											alt=""
-										/>
+										<img src={product.image} alt="" />
 										<div className="action-buttons flex justify-between px-5 z-0 absolute bottom-0 ">
 											<Button className="flex-1 rounded-none gap-3 w-full">
 												Add To Cart
@@ -214,11 +303,15 @@ const AllProducts = () => {
 										<CardTitle className="text-lg font-bold">
 											{product.name}
 										</CardTitle>
-										<CardDescription>{product.description}</CardDescription>
+										<CardDescription>
+											{product.description.length > 60
+												? product.description.slice(0, 60)
+												: product.description}
+											...
+										</CardDescription>
 										<div className="flex flex-col justify-center gap-3">
 											<div>
 												<div className="flex w-full justify-center">
-													{/* {renderStars} */}
 													<Star className="text-yellow-500" />
 													<Star className="text-yellow-500" />
 													<Star className="text-yellow-500" />

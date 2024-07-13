@@ -6,6 +6,7 @@ import { Separator } from "../ui/separator"
 import baseApi from "@/redux/api/baseApi"
 import { Textarea } from "../ui/textarea"
 import { useParams } from "react-router-dom"
+import toast from "react-hot-toast"
 
 const UpdateProduct = () => {
 	const { id } = useParams()
@@ -19,7 +20,7 @@ const UpdateProduct = () => {
 		const productInfo = { data, id }
 		const res = await updateProduct(productInfo).unwrap()
 		if (res.success) {
-			console.log("product update successfully")
+			toast.success("product update successfully")
 		}
 	}
 	if (isLoading) {

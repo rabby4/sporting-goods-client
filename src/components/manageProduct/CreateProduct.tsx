@@ -5,16 +5,16 @@ import { Label } from "../ui/label"
 import { Separator } from "../ui/separator"
 import { Textarea } from "../ui/textarea"
 import { FieldValues, useForm } from "react-hook-form"
+import { toast } from "react-hot-toast"
 
 const CreateProduct = () => {
 	const { register, handleSubmit } = useForm()
 	const [addProduct] = baseApi.usePostProductMutation()
 
 	const onSubmit = async (data: FieldValues) => {
-		console.log(data)
 		const res = await addProduct(data).unwrap()
 		if (res.success) {
-			console.log("product post successfully")
+			toast.success("Product post successfully")
 		}
 	}
 	return (
@@ -51,32 +51,62 @@ const CreateProduct = () => {
 								{...register("description")}
 							/>
 						</div>
-						<div className="flex gap-5">
-							<div className="grid w-full max-w-sm items-center gap-1.5">
+						<div className="flex gap-5 justify-between">
+							<div className="grid w-full items-center gap-1.5">
 								<Label htmlFor="category" className="font-medium">
 									Category Name
 								</Label>
-								<Input
-									type="text"
-									id="category"
-									placeholder="Category Name"
+								<select
+									className="border py-2 px-4 w-full "
+									defaultValue={"football"}
 									{...register("category")}
-								/>
+								>
+									<option disabled value="all">
+										All Sports
+									</option>
+									<option value="fitness">Fitness</option>
+									<option value="football">Football</option>
+									<option value="accessories">Accessories</option>
+									<option value="running">Running</option>
+									<option value="soccer">Soccer</option>
+									<option value="tennis">Tennis</option>
+									<option value="basketball">Basketball</option>
+									<option value="cycling">Cycling</option>
+									<option value="golf">Golf</option>
+									<option value="swimming">Swimming</option>
+									<option value="cricket">Cricket</option>
+									<option value="badminton">Badminton</option>
+								</select>
 							</div>
-							<div className="grid w-full max-w-sm items-center gap-1.5">
+							<div className="grid w-full items-center gap-1.5">
 								<Label htmlFor="brand" className="font-medium">
 									Brand Name
 								</Label>
-								<Input
-									type="text"
-									id="brand"
-									placeholder="Brand Name"
+								<select
+									className="border py-2 px-4 w-full cursor-pointer"
+									defaultValue={"nike"}
 									{...register("brand")}
-								/>
+								>
+									<option disabled value="all">
+										All Brands
+									</option>
+									<option value="nike">Nike</option>
+									<option value="adidas">Adidas</option>
+									<option value="puma">Puma</option>
+									<option value="under-armour">Under Armour</option>
+									<option value="reebok">Reebok</option>
+									<option value="asics">Asics</option>
+									<option value="new-balance">New Balance</option>
+									<option value="fila">Fila</option>
+									<option value="mizuno">Mizuno</option>
+									<option value="salomon">Salomon</option>
+									<option value="oakley">Oakley</option>
+									<option value="umbro">Umbro</option>
+								</select>
 							</div>
 						</div>
 						<div className="flex gap-5">
-							<div className="grid w-full max-w-sm items-center gap-1.5">
+							<div className="grid w-full items-center gap-1.5">
 								<Label htmlFor="quantity" className="font-medium">
 									Stock Quantity
 								</Label>
@@ -87,7 +117,7 @@ const CreateProduct = () => {
 									{...register("quantity")}
 								/>
 							</div>
-							<div className="grid w-full max-w-sm items-center gap-1.5">
+							<div className="grid w-full items-center gap-1.5">
 								<Label htmlFor="price" className="font-medium">
 									Price
 								</Label>
@@ -99,9 +129,15 @@ const CreateProduct = () => {
 								/>
 							</div>
 						</div>
-						<div className="grid w-full max-w-sm items-center gap-1.5">
-							<Label htmlFor="image">Image</Label>
-							<Input id="image" type="text" {...register("image")} />
+						<div className="flex justify-between gap-5">
+							<div className="grid w-full  items-center gap-1.5">
+								<Label htmlFor="image">Image</Label>
+								<Input id="image" type="text" {...register("image")} />
+							</div>
+							<div className="grid w-full  items-center gap-1.5">
+								<Label htmlFor="rating">Rating</Label>
+								<Input id="rating" type="number" {...register("rating")} />
+							</div>
 						</div>
 						<Button type="submit" className="bg-green">
 							Upload Product
