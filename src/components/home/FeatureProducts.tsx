@@ -27,7 +27,17 @@ const renderStars = (rating: number) => {
 }
 
 const FeatureProducts = () => {
-	const { data: products } = baseApi.useGetProductQuery(undefined)
+	const { data: products, isLoading } = baseApi.useGetProductQuery(undefined)
+
+	if (isLoading) {
+		return <p>Loading...</p>
+	}
+	const allProduct = [...products?.data]
+	const sortProductsByDate = allProduct?.sort(
+		(a: any, b: any) =>
+			new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+	)
+
 	return (
 		<div>
 			<div className="container">
@@ -37,8 +47,8 @@ const FeatureProducts = () => {
 						Visit our shop page and see our amazing products.
 					</p>
 				</div>
-				<div className="grid grid-cols-4 gap-5">
-					{products?.data?.map((product: any) => (
+				<div className="grid grid-cols-4 gap-5 mt-10">
+					{sortProductsByDate?.map((product: any) => (
 						<Card className="action-hover overflow-hidden" key={product._id}>
 							<CardHeader className="p-0 relative ">
 								<Badge className="bg-green justify-center italic tracking-wider -rotate-45 rotate-badge">
