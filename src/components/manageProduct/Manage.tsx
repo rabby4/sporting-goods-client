@@ -11,6 +11,7 @@ import {
 } from "../ui/table"
 import baseApi from "@/redux/api/baseApi"
 import { NavLink } from "react-router-dom"
+import toast from "react-hot-toast"
 
 const Manage = () => {
 	const { data: products, isLoading } = baseApi.useGetProductQuery(undefined)
@@ -20,6 +21,7 @@ const Manage = () => {
 	}
 	const onSubmit = async (id: string) => {
 		deleteProduct(id)
+		toast.success("Product deleted successfully!")
 	}
 	return (
 		<div>

@@ -8,6 +8,7 @@ import { addProduct } from "@/redux/feature/productSlice"
 import { useAppDispatch } from "@/redux/hook"
 import { Star } from "lucide-react"
 import { FieldValues, useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 import { useParams } from "react-router-dom"
 
@@ -29,6 +30,7 @@ const SingleProduct = () => {
 
 		const cartData = { ...product, price: totalPrice, orderedQty }
 		dispatch(addProduct(cartData))
+		toast.success("Your product added to cart!")
 	}
 
 	return (
@@ -41,7 +43,6 @@ const SingleProduct = () => {
 					<div className="flex flex-col gap-5">
 						<h2 className="text-2xl font-bold">{product?.name}</h2>
 						<div className="flex justify-start">
-							{/* {renderStars} */}
 							<Star className="text-yellow-500" size={20} />
 							<Star className="text-yellow-500" size={20} />
 							<Star className="text-yellow-500" size={20} />

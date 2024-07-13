@@ -132,7 +132,12 @@ const CreateProduct = () => {
 						<div className="flex justify-between gap-5">
 							<div className="grid w-full  items-center gap-1.5">
 								<Label htmlFor="image">Image</Label>
-								<Input id="image" type="text" {...register("image")} />
+								<Input
+									id="image"
+									type="text"
+									placeholder="Image url..."
+									{...register("image")}
+								/>
 							</div>
 							<div className="grid w-full  items-center gap-1.5">
 								<Label htmlFor="rating">Rating</Label>

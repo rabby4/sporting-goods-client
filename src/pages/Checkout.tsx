@@ -7,10 +7,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 
 import { Textarea } from "@/components/ui/textarea"
-import baseApi from "@/redux/api/baseApi"
 import { removeAllCartData } from "@/redux/feature/productSlice"
 import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 
 const Checkout = () => {
@@ -29,6 +29,7 @@ const Checkout = () => {
 	const onSubmit = () => {
 		dispatch(removeAllCartData())
 		navigate("/thank-you")
+		toast.success("Order placed successfully!")
 	}
 
 	return (

@@ -1,5 +1,6 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Star, StarIcon } from "lucide-react"
+import { Star } from "lucide-react"
 import { Button } from "../ui/button"
 import {
 	Card,
@@ -12,22 +13,8 @@ import { Badge } from "../ui/badge"
 import { NavLink } from "react-router-dom"
 import baseApi from "@/redux/api/baseApi"
 
-const renderStars = (rating: number) => {
-	const stars = []
-	for (let i = 1; i <= 10; i++) {
-		stars.push(
-			i <= rating ? (
-				<Star key={i} className="text-yellow-500" />
-			) : (
-				<StarIcon key={i} className="text-gray-500" />
-			)
-		)
-	}
-	return stars
-}
-
 const FeatureProducts = () => {
-	const { data: products, isLoading } = baseApi.useGetProductQuery(undefined)
+	const { data: products, isLoading } = baseApi.useGetProductQuery("all")
 
 	if (isLoading) {
 		return <p>Loading...</p>
@@ -54,10 +41,7 @@ const FeatureProducts = () => {
 								<Badge className="bg-green justify-center italic tracking-wider -rotate-45 rotate-badge">
 									<strong>Brand: </strong> <span>{product.brand}</span>
 								</Badge>
-								<img
-									src="https://ornaldo.themeftc.com/wp-content/uploads/2021/03/19-2-548x548.jpg"
-									alt=""
-								/>
+								<img src={product.image} alt="" />
 								<div className="action-buttons flex justify-between px-5 z-0 absolute bottom-0 ">
 									<Button className="flex-1 rounded-none gap-3 w-full">
 										Add To Cart
@@ -74,11 +58,14 @@ const FeatureProducts = () => {
 								<CardTitle className="text-lg font-bold">
 									{product.name}
 								</CardTitle>
-								<CardDescription>{product.description}</CardDescription>
+								<CardDescription>
+									{product.description.length > 60
+										? product.description.slice(0, 60)
+										: product.description}
+								</CardDescription>
 								<div className="flex flex-col justify-center gap-3">
 									<div>
 										<div className="flex w-full justify-center">
-											{/* {renderStars} */}
 											<Star className="text-yellow-500" />
 											<Star className="text-yellow-500" />
 											<Star className="text-yellow-500" />

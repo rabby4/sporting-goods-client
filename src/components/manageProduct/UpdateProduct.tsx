@@ -115,7 +115,7 @@ const UpdateProduct = () => {
 						</div>
 						<div className="grid w-full max-w-sm items-center gap-1.5">
 							<Label htmlFor="image">Image</Label>
-							<Input id="image" type="text" {...register("image")} />
+							<Input id="image" type="text" {...register("image")} readOnly />
 						</div>
 						<Button type="submit" className="bg-green">
 							Upload Product
