@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import baseApi from "@/redux/api/baseApi"
-import { setCart } from "@/redux/feature/productSlice"
+import { addProduct } from "@/redux/feature/productSlice"
 import { useAppDispatch } from "@/redux/hook"
 import { Star } from "lucide-react"
 import { FieldValues, useForm } from "react-hook-form"
@@ -25,8 +25,11 @@ const SingleProduct = () => {
 
 	const onSubmit = (data: FieldValues) => {
 		const orderedQty = Number(data.orderedQty)
-		const cartData = { ...product, orderedQty }
-		dispatch(setCart(cartData))
+		const totalPrice = product.price * orderedQty
+		console.log(totalPrice)
+		const cartData = { ...product, price: totalPrice, orderedQty }
+		dispatch(addProduct(cartData))
+		console.log(product)
 	}
 
 	return (

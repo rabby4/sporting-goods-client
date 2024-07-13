@@ -2,23 +2,23 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 type TProduct = {
-	_id: string | null
-	name: string | null
-	description: string | null
-	category: string | null
-	brand: string | null
-	quantity: number | null
-	price: number | null
-	image: string | null
-	orderedQty: number | null
+	_id: string
+	name: string
+	description: string
+	category: string
+	brand: string
+	quantity: number
+	price: number
+	image: string
+	orderedQty: number
 }
 
 type TInitialState = {
-	data: null | TProduct
+	data: TProduct[]
 }
 
 const initialState: TInitialState = {
-	data: null,
+	data: [],
 }
 
 const productSlice = createSlice({
@@ -26,11 +26,25 @@ const productSlice = createSlice({
 	initialState,
 	reducers: {
 		setCart: (state, actions) => {
+			console.log(state.data)
 			const data = actions.payload
 			state.data = data
+		},
+		addProduct: (state, actions) => {
+			const existingProduct = state.data.find(
+				(product) => product._id === actions.payload._id
+			)
+			if (!existingProduct) {
+				state.data?.push(actions.payload)
+			}
+		},
+		removeCartData: (state, actions) => {
+			state.data = state.data.filter(
+				(product) => product._id !== actions.payload.id
+			)
 		},
 	},
 })
 
-export const { setCart } = productSlice.actions
+export const { setCart, addProduct, removeCartData } = productSlice.actions
 export default productSlice.reducer

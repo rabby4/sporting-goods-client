@@ -9,15 +9,25 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
-import { useAppSelector } from "@/redux/hook"
+import { removeCartData } from "@/redux/feature/productSlice"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { NavLink } from "react-router-dom"
 
 const Cart = () => {
+	const dispatch = useAppDispatch()
 	const cartData = useAppSelector((state) => state.product.data)
-	console.log(cartData)
-	const subTotal = cartData!.price! * cartData!.orderedQty!
+
+	const subTotal = cartData.reduce(
+		(subTotal, product2) => subTotal + product2.price,
+		0
+	)
+	console.log(subTotal)
 	const totalVat = (subTotal * 15) / 100
 	const total = subTotal + totalVat
+
+	const handleRemoveProduct = (id: string) => {
+		dispatch(removeCartData({ id }))
+	}
 
 	return (
 		<div>
@@ -36,27 +46,36 @@ const Cart = () => {
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							<TableRow>
-								<TableCell>
-									<img
-										src={cartData?.image as string}
-										alt=""
-										className="size-20"
-									/>
-								</TableCell>
-								<TableCell className="font-medium">{cartData?.name}</TableCell>
-								<TableCell>
-									<Input
-										className="w-[100px]"
-										type="number"
-										defaultValue={cartData?.orderedQty as number}
-									/>
-								</TableCell>
-								<TableCell className="text-right">${cartData?.price}</TableCell>
-								<TableCell>
-									<Button className="bg-red-600">X</Button>
-								</TableCell>
-							</TableRow>
+							{cartData.map((product) => (
+								<TableRow key={product._id}>
+									<TableCell>
+										<img
+											src={product?.image as string}
+											alt=""
+											className="size-20"
+										/>
+									</TableCell>
+									<TableCell className="font-medium">{product?.name}</TableCell>
+									<TableCell>
+										<Input
+											className="w-[100px]"
+											type="number"
+											defaultValue={product?.orderedQty as number}
+										/>
+									</TableCell>
+									<TableCell className="text-right">
+										${product?.price}
+									</TableCell>
+									<TableCell>
+										<Button
+											onClick={() => handleRemoveProduct(product._id as string)}
+											className="bg-red-600"
+										>
+											X
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
 						</TableBody>
 					</Table>
 					<div className="flex w-full max-w-sm items-center space-x-2 mt-5">

@@ -1,20 +1,24 @@
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table"
+
 import { Textarea } from "@/components/ui/textarea"
+import { useAppSelector } from "@/redux/hook"
 
 const Checkout = () => {
+	const cartData = useAppSelector((state) => state.product.data)
+
+	const subTotal = cartData.reduce(
+		(subTotal, product2) => subTotal + product2.price,
+		0
+	)
+	console.log(cartData)
+	const totalVat = (subTotal * 15) / 100
+	const total = subTotal + totalVat
 	return (
 		<div>
 			<div className="bg-about-us h-64 flex justify-center items-center">
@@ -89,48 +93,51 @@ const Checkout = () => {
 					<div>
 						<div className="space-y-5 flex flex-col p-10 border-2">
 							<h2 className="text-2xl font-oswald tracking-wider text-center">
-								Your Order
+								Your Order Details
 							</h2>
 
 							<div className="space-y-5 flex flex-col bg-slate-50 p-5">
-								<Table>
-									<TableHeader>
-										<TableRow>
-											<TableHead>Image</TableHead>
-											<TableHead>Product</TableHead>
-
-											<TableHead className="text-right">Sub Total</TableHead>
-										</TableRow>
-									</TableHeader>
-									<TableBody>
-										<TableRow>
-											<TableCell>
-												<img
-													src="https://ornaldo.themeftc.com/wp-content/uploads/2021/03/19-2-548x548.jpg"
-													alt=""
-													className="size-20"
-												/>
-											</TableCell>
-											<TableCell className="font-medium">
-												<p className="mb-2">Golf hand gloves</p>
-												<Input className="w-[100px]" type="number" />
-											</TableCell>
-
-											<TableCell className="text-right">$250.00</TableCell>
-										</TableRow>
-									</TableBody>
-								</Table>
-								<Separator />
-								<p className="tracking-wider flex justify-between">
-									<strong>Subtotal: </strong> <span>$999</span>
-								</p>
-								<p className="tracking-wider flex justify-between">
-									<strong>VAT 15%: </strong> <span>$15</span>
-								</p>
-								<Separator />
-								<p className="tracking-wider flex justify-between">
-									<strong>Total: </strong> <span>$1000</span>
-								</p>
+								<Card
+									className="overflow-hidden"
+									x-chunk="dashboard-05-chunk-4"
+								>
+									<CardContent className="p-6 text-sm">
+										<div className="grid gap-3">
+											<div className="font-semibold"></div>
+											<ul className="grid gap-3">
+												{cartData.map((product) => (
+													<li
+														className="flex items-center justify-between"
+														key={product._id}
+													>
+														<span className="text-muted-foreground">
+															{product.name} x <span>{product.orderedQty}</span>
+														</span>
+														<span>${product.price}</span>
+													</li>
+												))}
+											</ul>
+											<Separator className="my-2" />
+											<ul className="grid gap-3">
+												<li className="flex items-center justify-between">
+													<span className="text-muted-foreground">
+														Subtotal
+													</span>
+													<span>${subTotal}</span>
+												</li>
+												<li className="flex items-center justify-between">
+													<span className="text-muted-foreground">Tax</span>
+													<span>${totalVat}</span>
+												</li>
+												<li className="flex items-center justify-between font-semibold">
+													<span className="text-muted-foreground">Total</span>
+													<span>${total}</span>
+												</li>
+											</ul>
+										</div>
+										<Separator className="my-4" />
+									</CardContent>
+								</Card>
 							</div>
 							<div>
 								<RadioGroup defaultValue="cash-on" className="space-y-2">
