@@ -9,9 +9,16 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
+import { useAppSelector } from "@/redux/hook"
 import { NavLink } from "react-router-dom"
 
 const Cart = () => {
+	const cartData = useAppSelector((state) => state.product.data)
+	console.log(cartData)
+	const subTotal = cartData!.price! * cartData!.orderedQty!
+	const totalVat = (subTotal * 15) / 100
+	const total = subTotal + totalVat
+
 	return (
 		<div>
 			<div className="bg-about-us h-64 flex justify-center items-center">
@@ -32,16 +39,20 @@ const Cart = () => {
 							<TableRow>
 								<TableCell>
 									<img
-										src="https://ornaldo.themeftc.com/wp-content/uploads/2021/03/19-2-548x548.jpg"
+										src={cartData?.image as string}
 										alt=""
 										className="size-20"
 									/>
 								</TableCell>
-								<TableCell className="font-medium">Golf hand gloves</TableCell>
+								<TableCell className="font-medium">{cartData?.name}</TableCell>
 								<TableCell>
-									<Input className="w-[100px]" type="number" />
+									<Input
+										className="w-[100px]"
+										type="number"
+										defaultValue={cartData?.orderedQty as number}
+									/>
 								</TableCell>
-								<TableCell className="text-right">$250.00</TableCell>
+								<TableCell className="text-right">${cartData?.price}</TableCell>
 								<TableCell>
 									<Button className="bg-red-600">X</Button>
 								</TableCell>
@@ -60,17 +71,17 @@ const Cart = () => {
 						<h2 className="text-2xl font-oswald tracking-wider">Cart Total</h2>
 						<Separator />
 						<p className="tracking-wider flex justify-between">
-							<strong>Subtotal: </strong> <span>$999</span>
+							<strong>Subtotal: </strong> <span>${subTotal}</span>
 						</p>
 						<p className="tracking-wider flex justify-between">
-							<strong>VAT 15%: </strong> <span>$15</span>
+							<strong>VAT 15%: </strong> <span>${totalVat}</span>
 						</p>
 						<Separator />
 						<p className="tracking-wider flex justify-between">
-							<strong>Total: </strong> <span>$1000</span>
+							<strong>Total: </strong> <span>${total}</span>
 						</p>
-						<NavLink to={"/checkout"}>
-							<Button className="bg-green">PROCEED TO CHECKOUT</Button>
+						<NavLink to={"/checkout"} className="w-full">
+							<Button className="bg-green w-full">PROCEED TO CHECKOUT</Button>
 						</NavLink>
 					</div>
 				</div>

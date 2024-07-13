@@ -4,18 +4,30 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import baseApi from "@/redux/api/baseApi"
+import { setCart } from "@/redux/feature/productSlice"
+import { useAppDispatch } from "@/redux/hook"
 import { Star } from "lucide-react"
+import { FieldValues, useForm } from "react-hook-form"
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 import { useParams } from "react-router-dom"
 
 const SingleProduct = () => {
+	const { register, handleSubmit } = useForm()
+	const dispatch = useAppDispatch()
 	const { id } = useParams()
 	const { data: singleProduct, isLoading } =
 		baseApi.useGetSingleProductQuery(id)
+
 	if (isLoading) {
 		return <p>Loading...</p>
 	}
 	const product = singleProduct?.data
+
+	const onSubmit = (data: FieldValues) => {
+		const orderedQty = Number(data.orderedQty)
+		const cartData = { ...product, orderedQty }
+		dispatch(setCart(cartData))
+	}
 
 	return (
 		<div className="my-10">
@@ -51,10 +63,16 @@ const SingleProduct = () => {
 								<strong>Brand: </strong> <span>{product?.brand}</span>
 							</Badge>
 						</div>
-						<div className="flex gap-5">
-							<Input className="w-[100px]" type="number" />
-							<Button className="bg-green px-10">Add to cart</Button>
-						</div>
+						<form onSubmit={handleSubmit(onSubmit)} className="flex gap-5">
+							<Input
+								className="w-[100px]"
+								type="number"
+								{...register("orderedQty")}
+							/>
+							<Button type="submit" className="bg-green px-10">
+								Add to cart
+							</Button>
+						</form>
 						<Separator />
 						<p>
 							<strong>Category: </strong> <span>{product?.category}</span>

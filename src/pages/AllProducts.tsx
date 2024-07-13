@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -41,13 +42,29 @@ import { NavLink } from "react-router-dom"
 
 const AllProducts = () => {
 	const [search, setSearch] = useState("")
-	const { data: products } = baseApi.useGetProductQuery(search)
+	const [sorting, setSorting] = useState("ascending")
+	const { data: products, isLoading } = baseApi.useGetProductQuery(search)
 
 	const { register, handleSubmit } = useForm()
 	const onSubmit = async (data: FieldValues) => {
 		console.log(data)
 		setSearch(data.searchTerms)
 	}
+	if (isLoading) {
+		return <p>loading...</p>
+	}
+
+	const productData = products?.data ?? []
+	const sortProduct = [...productData]
+	console.log(sortProduct)
+
+	sortProduct?.sort((a: any, b: any) => {
+		if (sorting === "ascending") {
+			return a.name > b.name ? 1 : -1
+		} else {
+			return a.name < b.name ? 1 : -1
+		}
+	})
 
 	return (
 		<div className="mb-20">
@@ -152,10 +169,16 @@ const AllProducts = () => {
 									<DropdownMenuContent align="end">
 										<DropdownMenuLabel>Sort by</DropdownMenuLabel>
 										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem
+											checked={sorting === "ascending"}
+											onCheckedChange={() => setSorting("ascending")}
+										>
 											Ascending To Descending
 										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem>
+										<DropdownMenuCheckboxItem
+											checked={sorting === "descending"}
+											onCheckedChange={() => setSorting("descending")}
+										>
 											Descending To Ascending
 										</DropdownMenuCheckboxItem>
 									</DropdownMenuContent>
@@ -163,7 +186,7 @@ const AllProducts = () => {
 							</div>
 						</div>
 						<div className="grid grid-cols-3 gap-5">
-							{products?.data?.map((product: any) => (
+							{sortProduct?.map((product: any) => (
 								<Card
 									className="action-hover overflow-hidden"
 									key={product._id}
