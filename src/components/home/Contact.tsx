@@ -13,13 +13,13 @@ const Contact = () => {
 	return (
 		<div>
 			<div className="container my-20">
-				<div className="w-2/4 mx-auto text-center space-y-3">
+				<div className="md:w-2/4 mx-auto text-center space-y-3 md:px-0 px-5">
 					<h1 className="text-4xl font-bold">Contact Us</h1>
 					<p className="italic ">
 						If you have any Questions or query then you can contact with us.
 					</p>
 				</div>
-				<div className="grid grid-cols-2 gap-20 mt-10">
+				<div className="grid lg:grid-cols-2 grid-cols-1 gap-20 mt-10 lg:px-0 md:px-10 px-5">
 					<div className="space-y-10">
 						<div>
 							<h2 className="text-2xl font-medium">

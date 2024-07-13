@@ -71,9 +71,9 @@ const AllProducts = () => {
 			<div className="bg-about-us h-64 flex justify-center items-center">
 				<h1 className="text-5xl font-oswald text-white">Shop Page</h1>
 			</div>
-			<div className="container">
-				<div className="grid grid-cols-4 gap-10 mt-10">
-					<div className="col-span-1 space-y-5">
+			<div className="container lg:px-0 md:px-10 px-5">
+				<div className="grid lg:grid-cols-4 grid-cols-1 lg:gap-10 mt-10">
+					<div className="col-span-1 lg:space-y-5 space-y-3">
 						<div className="flex flex-col gap-3">
 							<h2 className="text-lg self-start font-medium">
 								Filter by Price
@@ -135,14 +135,13 @@ const AllProducts = () => {
 						</div>
 						<Button className="w-full bg-green">Reset Filter</Button>
 					</div>
-					<div className="col-span-3">
-						<div className="mb-5 flex items-end justify-between">
+					<div className="lg:col-span-3 col-span-2">
+						<div className="mb-5 flex items-end justify-between md:mt-0 mt-5">
 							<div>
 								<h2 className="text-lg self-start font-medium">
 									Product by Search
 								</h2>
 								<form
-									// onBlur={(e) => setSearch(e.target.value)}
 									onSubmit={handleSubmit(onSubmit)}
 									className="flex w-full max-w-sm items-center space-x-2 mt-2"
 								>
@@ -185,7 +184,7 @@ const AllProducts = () => {
 								</DropdownMenu>
 							</div>
 						</div>
-						<div className="grid grid-cols-3 gap-5">
+						<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
 							{sortProduct?.map((product: any) => (
 								<Card
 									className="action-hover overflow-hidden"

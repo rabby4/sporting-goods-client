@@ -11,7 +11,7 @@ const Footer = () => {
 		<div>
 			<div className="w-full bg-gray-950 text-gray-300 py-14">
 				<div className="container">
-					<div className="grid lg:grid-cols-3 grid-cols-1 gap-10">
+					<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 lg:px-0 md:px-10 px-5">
 						<div className="relative">
 							<h2 className="text-xl font-bold mb-2 uppercase">About Ornald</h2>
 							<span className="w-28 h-[2px] bg-green absolute"></span>
@@ -116,14 +116,14 @@ const Footer = () => {
 			</div>
 			<div className="w-full bg-black text-gray-300 py-4 ">
 				<div className="container">
-					<div className="grid md:grid-cols-2 grid-cols-1 justify-between">
-						<div className="text-sm">
+					<div className="grid lg:grid-cols-2 grid-cols-1 lg:justify-between justify-center gap-5">
+						<div className="text-sm lg:text-left text-center">
 							COPYRIGHT © 2024, ALL RIGHTS RESERVED. POWERED BY{" "}
 							<NavLink to={"/"} className={"font-bold"}>
 								ORNALDO
 							</NavLink>
 						</div>
-						<div className="flex justify-end">
+						<div className="flex lg:justify-end justify-center">
 							<img
 								src="https://demo.towerthemes.com/tt_aboss/image/catalog/payment-icon.png"
 								alt=""

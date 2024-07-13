@@ -34,7 +34,7 @@ const Cart = () => {
 			<div className="bg-about-us h-64 flex justify-center items-center">
 				<h1 className="text-5xl font-oswald text-white">My Cart</h1>
 			</div>
-			<div className="container my-20 grid grid-cols-3 gap-6">
+			<div className="container my-20 grid lg:grid-cols-3 gap-6 lg:px-0 md:px-10 px-5">
 				<div className="col-span-2">
 					<Table>
 						<TableHeader>
@@ -58,7 +58,7 @@ const Cart = () => {
 									<TableCell className="font-medium">{product?.name}</TableCell>
 									<TableCell>
 										<Input
-											className="w-[100px]"
+											className="md:w-[100px] w-14"
 											type="number"
 											defaultValue={product?.orderedQty as number}
 										/>
@@ -85,7 +85,7 @@ const Cart = () => {
 						</Button>
 					</div>
 				</div>
-				<div>
+				<div className="lg:col-span-1 col-span-2">
 					<div className="space-y-8 flex flex-col p-10 border-2">
 						<h2 className="text-2xl font-oswald tracking-wider">Cart Total</h2>
 						<Separator />

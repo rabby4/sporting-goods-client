@@ -42,7 +42,7 @@ const CreateProduct = () => {
 							/>
 						</div>
 						<div className="grid w-full gap-1.5">
-							<Label htmlFor="description" className="font-normal">
+							<Label htmlFor="description" className="font-medium">
 								Product Description
 							</Label>
 							<Textarea
@@ -53,7 +53,7 @@ const CreateProduct = () => {
 						</div>
 						<div className="flex gap-5">
 							<div className="grid w-full max-w-sm items-center gap-1.5">
-								<Label htmlFor="category" className="font-normal">
+								<Label htmlFor="category" className="font-medium">
 									Category Name
 								</Label>
 								<Input
@@ -64,7 +64,7 @@ const CreateProduct = () => {
 								/>
 							</div>
 							<div className="grid w-full max-w-sm items-center gap-1.5">
-								<Label htmlFor="brand" className="font-normal">
+								<Label htmlFor="brand" className="font-medium">
 									Brand Name
 								</Label>
 								<Input
@@ -77,7 +77,7 @@ const CreateProduct = () => {
 						</div>
 						<div className="flex gap-5">
 							<div className="grid w-full max-w-sm items-center gap-1.5">
-								<Label htmlFor="quantity" className="font-normal">
+								<Label htmlFor="quantity" className="font-medium">
 									Stock Quantity
 								</Label>
 								<Input
@@ -88,7 +88,7 @@ const CreateProduct = () => {
 								/>
 							</div>
 							<div className="grid w-full max-w-sm items-center gap-1.5">
-								<Label htmlFor="price" className="font-normal">
+								<Label htmlFor="price" className="font-medium">
 									Price
 								</Label>
 								<Input

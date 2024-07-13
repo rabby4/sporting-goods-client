@@ -7,11 +7,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 
 import { Textarea } from "@/components/ui/textarea"
+import baseApi from "@/redux/api/baseApi"
 import { removeAllCartData } from "@/redux/feature/productSlice"
 import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 const Checkout = () => {
+	const navigate = useNavigate()
 	const { register, handleSubmit } = useForm()
 	const dispatch = useAppDispatch()
 	const cartData = useAppSelector((state) => state.product.data)
@@ -25,6 +28,7 @@ const Checkout = () => {
 
 	const onSubmit = () => {
 		dispatch(removeAllCartData())
+		navigate("/thank-you")
 	}
 
 	return (
@@ -35,7 +39,7 @@ const Checkout = () => {
 			<div className="container my-20">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="grid grid-cols-2 gap-10"
+					className="grid lg:grid-cols-2 gap-10 lg:px-0 md:px-10 px-5"
 				>
 					<div>
 						<div className="space-y-10">

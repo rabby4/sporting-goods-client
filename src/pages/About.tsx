@@ -14,8 +14,8 @@ const About = () => {
 			<div className="bg-about-us h-64 flex justify-center items-center">
 				<h1 className="text-5xl font-oswald text-white">About Us</h1>
 			</div>
-			<div className="container py-20">
-				<div className="grid grid-cols-2 justify-between items-center">
+			<div className="container py-20 lg:px-0 md:px-10 px-5">
+				<div className="grid lg:grid-cols-2 grid-cols-1 justify-between items-center gap-5">
 					<div>
 						<img
 							src="https://ornaldo.themeftc.com/wp-content/uploads/2017/03/about-story-1.jpg"
@@ -43,22 +43,22 @@ const About = () => {
 						</p>
 					</div>
 				</div>
-				<div className="grid grid-cols-3 mt-20 justify-between border border-gray-200 py-10 rounded-md">
-					<div className="flex gap-4 mt-5 justify-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 mt-20 justify-between border border-gray-200 md:py-5 p-10 rounded-md">
+					<div className="flex gap-4 mt-5 md:justify-center">
 						<IoLocationOutline className="text-4xl text-green" />
 						<div className="-mt-1">
 							<h3 className="text-lg font-bold">Address:</h3>
 							<p className="italic">Mirpur, Dhaka, Bangladesh</p>
 						</div>
 					</div>
-					<div className="flex gap-4 mt-5 justify-center">
+					<div className="flex gap-4 mt-5 md:justify-center">
 						<MdOutlinePhone className="text-4xl text-green" />
 						<div className="-mt-1">
 							<h3 className="text-lg font-bold">Phone:</h3>
 							<p className="italic">+880123456789</p>
 						</div>
 					</div>
-					<div className="flex gap-4 mt-5 justify-center">
+					<div className="flex gap-4 mt-5 md:justify-center">
 						<FaRegEnvelope className="text-3xl text-green" />
 						<div className="-mt-1">
 							<h3 className="text-lg font-bold">Email:</h3>
@@ -66,8 +66,8 @@ const About = () => {
 						</div>
 					</div>
 				</div>
-				<div className="grid grid-cols-2 justify-between items-center gap-20 py-20 ">
-					<div className="space-y-5">
+				<div className="grid lg:grid-cols-2 justify-between items-center lg:gap-20 gap-5 py-20 ">
+					<div className="space-y-5 lg:order-1 order-2">
 						<h2 className="text-3xl font-oswald">Our Mission and Vision</h2>
 						<p>
 							At Ornald, our mission is to empower every athlete to reach their
@@ -96,13 +96,13 @@ const About = () => {
 					</div>
 				</div>
 				<div>
-					<div className="w-2/4 mx-auto text-center space-y-3">
+					<div className="md:w-2/4 mx-auto text-center space-y-3">
 						<h1 className="text-4xl font-bold">Our Team Members</h1>
 						<p className="italic">
 							Meet our lovely team member and get support from these persons
 						</p>
 					</div>
-					<div className="grid grid-cols-4 gap-7 mt-10">
+					<div className="grid md:grid-cols-4 grid-cols-2 lg:gap-7 gap-3 mt-10">
 						<div className="flex gap-4 mt-5 justify-center flex-col text-center">
 							<div className="member-img relative cursor-pointer">
 								<img
@@ -147,7 +147,9 @@ const About = () => {
 								</div>
 							</div>
 							<div className="-mt-1">
-								<h3 className="text-lg font-bold">Michael Thompson</h3>
+								<h3 className="lg:text-lg md:text-base lg:font-bold font-medium">
+									Michael Thompson
+								</h3>
 								<p className="italic">CEO</p>
 							</div>
 						</div>
@@ -195,7 +197,9 @@ const About = () => {
 								</div>
 							</div>
 							<div className="-mt-1">
-								<h3 className="text-lg font-bold">Michael Thompson</h3>
+								<h3 className="lg:text-lg md:text-base lg:font-bold font-medium">
+									Michael Thompson
+								</h3>
 								<p className="italic">CEO</p>
 							</div>
 						</div>
@@ -243,7 +247,9 @@ const About = () => {
 								</div>
 							</div>
 							<div className="-mt-1">
-								<h3 className="text-lg font-bold">Michael Thompson</h3>
+								<h3 className="lg:text-lg md:text-base lg:font-bold font-medium">
+									Michael Thompson
+								</h3>
 								<p className="italic">CEO</p>
 							</div>
 						</div>
@@ -291,7 +297,9 @@ const About = () => {
 								</div>
 							</div>
 							<div className="-mt-1">
-								<h3 className="text-lg font-bold">Michael Thompson</h3>
+								<h3 className="lg:text-lg md:text-base lg:font-bold font-medium">
+									Michael Thompson
+								</h3>
 								<p className="italic">CEO</p>
 							</div>
 						</div>

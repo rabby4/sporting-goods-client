@@ -41,13 +41,13 @@ const FeatureProducts = () => {
 	return (
 		<div>
 			<div className="container">
-				<div className="w-2/4 mx-auto text-center space-y-3">
+				<div className="md:w-2/4 mx-auto text-center space-y-3">
 					<h1 className="text-4xl font-bold">Featured Products</h1>
 					<p className="italic ">
 						Visit our shop page and see our amazing products.
 					</p>
 				</div>
-				<div className="grid grid-cols-4 gap-5 mt-10">
+				<div className="grid lg:grid-cols-4 md:grid-cols-2 gap-5 mt-10 lg:px-0 px-10">
 					{sortProductsByDate?.map((product: any) => (
 						<Card className="action-hover overflow-hidden" key={product._id}>
 							<CardHeader className="p-0 relative ">

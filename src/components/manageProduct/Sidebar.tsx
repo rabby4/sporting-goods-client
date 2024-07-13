@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 const Sidebar = () => {
 	return (
 		<div>
-			<div className="h-[95vh] my-5 border-r bg-muted/40 block p-5 rounded-md">
+			<div className="md:h-[95vh] my-5 border-r bg-muted/40 block lg:p-5 md:p-2 rounded-md">
 				<div className="flex h-full max-h-screen flex-col gap-2">
 					<div className="flex-1">
 						<nav className="grid md:grid-cols-1 grid-cols-2 items-start px-2 text-base font-medium lg:px-4">
