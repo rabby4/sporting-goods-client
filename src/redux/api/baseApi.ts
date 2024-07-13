@@ -9,7 +9,6 @@ export const baseApi = createApi({
 	endpoints: (builder) => ({
 		getProduct: builder.query({
 			query: (options) => {
-				console.log(options)
 				if (!options) {
 					return {
 						url: "/products",
@@ -49,6 +48,15 @@ export const baseApi = createApi({
 					url: `/products/${options.id}`,
 					method: "PUT",
 					body: options.data,
+				}
+			},
+			invalidatesTags: ["product"],
+		}),
+		deleteProduct: builder.mutation({
+			query: (id) => {
+				return {
+					url: `/products/${id}`,
+					method: "DELETE",
 				}
 			},
 			invalidatesTags: ["product"],

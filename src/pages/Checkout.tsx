@@ -7,25 +7,36 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 
 import { Textarea } from "@/components/ui/textarea"
-import { useAppSelector } from "@/redux/hook"
+import { removeAllCartData } from "@/redux/feature/productSlice"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { useForm } from "react-hook-form"
 
 const Checkout = () => {
+	const { register, handleSubmit } = useForm()
+	const dispatch = useAppDispatch()
 	const cartData = useAppSelector((state) => state.product.data)
-
-	const subTotal = cartData.reduce(
+	const subTotal = cartData?.reduce(
 		(subTotal, product2) => subTotal + product2.price,
 		0
 	)
-	console.log(cartData)
+
 	const totalVat = (subTotal * 15) / 100
 	const total = subTotal + totalVat
+
+	const onSubmit = () => {
+		dispatch(removeAllCartData())
+	}
+
 	return (
 		<div>
 			<div className="bg-about-us h-64 flex justify-center items-center">
 				<h1 className="text-5xl font-oswald text-white">Checkout</h1>
 			</div>
 			<div className="container my-20">
-				<form className="grid grid-cols-2 gap-10">
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className="grid grid-cols-2 gap-10"
+				>
 					<div>
 						<div className="space-y-10">
 							<div>
@@ -39,13 +50,23 @@ const Checkout = () => {
 										<Label htmlFor="firsName" className="font-normal">
 											First Name
 										</Label>
-										<Input type="text" id="firsName" placeholder="First Name" />
+										<Input
+											type="text"
+											id="firsName"
+											placeholder="First Name"
+											{...register("firstName")}
+										/>
 									</div>
 									<div className="grid w-full max-w-sm items-center gap-1.5">
 										<Label htmlFor="lastName" className="font-normal">
 											Last Name
 										</Label>
-										<Input type="text" id="lastName" placeholder="Last Name" />
+										<Input
+											type="text"
+											id="lastName"
+											placeholder="Last Name"
+											{...register("lastName")}
+										/>
 									</div>
 								</div>
 
@@ -56,12 +77,8 @@ const Checkout = () => {
 									<Input
 										type="text"
 										id="street"
-										placeholder="House number and street name"
-									/>
-									<Input
-										type="text"
-										id="street"
-										placeholder="Apartment, suite, unit, etc. (optional)"
+										placeholder="Address"
+										{...register("address")}
 									/>
 								</div>
 
@@ -69,13 +86,23 @@ const Checkout = () => {
 									<Label htmlFor="phone" className="font-normal">
 										Phone Number
 									</Label>
-									<Input type="phone" id="phone" placeholder="Phone Number" />
+									<Input
+										type="phone"
+										id="phone"
+										placeholder="Phone Number"
+										{...register("phoneNumber")}
+									/>
 								</div>
 								<div className="grid items-center gap-1.5">
 									<Label htmlFor="email" className="font-normal">
 										Email
 									</Label>
-									<Input type="email" id="email" placeholder="Email" />
+									<Input
+										type="email"
+										id="email"
+										placeholder="Email"
+										{...register("email")}
+									/>
 								</div>
 
 								<div className="grid w-full gap-1.5">
@@ -85,6 +112,7 @@ const Checkout = () => {
 									<Textarea
 										placeholder="Notes about your order, e.g. special notes for delivery."
 										id="message"
+										{...register("message")}
 									/>
 								</div>
 							</div>
@@ -140,7 +168,11 @@ const Checkout = () => {
 								</Card>
 							</div>
 							<div>
-								<RadioGroup defaultValue="cash-on" className="space-y-2">
+								<RadioGroup
+									defaultValue="cash-on"
+									className="space-y-2"
+									{...register("paymentOption")}
+								>
 									<div className="flex items-center space-x-2">
 										<RadioGroupItem value="cash-on" id="cash-on" />
 										<Label htmlFor="cash-on"> Cash on delivery</Label>

@@ -25,26 +25,34 @@ const productSlice = createSlice({
 	name: "product",
 	initialState,
 	reducers: {
-		setCart: (state, actions) => {
-			console.log(state.data)
-			const data = actions.payload
+		setCart: (state, action) => {
+			console.log(state?.data)
+			const data = action.payload
 			state.data = data
 		},
-		addProduct: (state, actions) => {
-			const existingProduct = state.data.find(
-				(product) => product._id === actions.payload._id
-			)
-			if (!existingProduct) {
-				state.data?.push(actions.payload)
+		addProduct: (state, action) => {
+			try {
+				const existingProduct = state?.data?.find(
+					(product) => product._id === action.payload._id
+				)
+				if (!existingProduct) {
+					state?.data?.push(action.payload)
+				}
+			} catch (error) {
+				console.log(error)
 			}
 		},
-		removeCartData: (state, actions) => {
-			state.data = state.data.filter(
-				(product) => product._id !== actions.payload.id
+		removeCartData: (state, action) => {
+			state.data = state?.data?.filter(
+				(product) => product._id !== action.payload.id
 			)
+		},
+		removeAllCartData: (state) => {
+			state.data = []
 		},
 	},
 })
 
-export const { setCart, addProduct, removeCartData } = productSlice.actions
+export const { setCart, addProduct, removeCartData, removeAllCartData } =
+	productSlice.actions
 export default productSlice.reducer

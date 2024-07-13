@@ -26,10 +26,9 @@ const SingleProduct = () => {
 	const onSubmit = (data: FieldValues) => {
 		const orderedQty = Number(data.orderedQty)
 		const totalPrice = product.price * orderedQty
-		console.log(totalPrice)
+
 		const cartData = { ...product, price: totalPrice, orderedQty }
 		dispatch(addProduct(cartData))
-		console.log(product)
 	}
 
 	return (

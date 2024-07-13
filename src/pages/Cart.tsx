@@ -16,12 +16,12 @@ import { NavLink } from "react-router-dom"
 const Cart = () => {
 	const dispatch = useAppDispatch()
 	const cartData = useAppSelector((state) => state.product.data)
-
+	console.log(cartData)
 	const subTotal = cartData.reduce(
 		(subTotal, product2) => subTotal + product2.price,
 		0
 	)
-	console.log(subTotal)
+
 	const totalVat = (subTotal * 15) / 100
 	const total = subTotal + totalVat
 

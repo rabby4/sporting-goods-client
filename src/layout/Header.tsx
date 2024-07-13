@@ -14,9 +14,11 @@ import {
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { useAppSelector } from "@/redux/hook"
 import { NavLink } from "react-router-dom"
 
 const Header = () => {
+	const cartData = useAppSelector((state) => state.product.data)
 	return (
 		<>
 			<div className="py-4">
@@ -149,7 +151,7 @@ const Header = () => {
 									>
 										<CartIcon />
 										<span className="size-5 flex items-center justify-center rounded-full text-sm text-white bg-green absolute right-2 -top-[2px]">
-											0
+											{cartData.length ? <>{cartData.length}</> : <p>0</p>}
 										</span>
 									</NavLink>
 								</NavigationMenuItem>

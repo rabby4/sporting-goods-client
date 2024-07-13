@@ -9,6 +9,7 @@ import Checkout from "@/pages/Checkout"
 import Home from "@/pages/Home"
 import ManageProduct from "@/pages/ManageProduct"
 import SingleProduct from "@/pages/SingleProduct"
+import ThankYou from "@/pages/ThankYou"
 import { createBrowserRouter } from "react-router-dom"
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
 			{
 				path: "/checkout",
 				element: <Checkout />,
+			},
+			{
+				path: "/thank-you",
+				element: <ThankYou />,
 			},
 			{
 				path: "/manage-product",

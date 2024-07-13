@@ -14,8 +14,12 @@ import { NavLink } from "react-router-dom"
 
 const Manage = () => {
 	const { data: products, isLoading } = baseApi.useGetProductQuery(undefined)
+	const [deleteProduct] = baseApi.useDeleteProductMutation()
 	if (isLoading) {
 		return <p>loading</p>
+	}
+	const onSubmit = async (id: string) => {
+		deleteProduct(id)
 	}
 	return (
 		<div>
@@ -58,7 +62,10 @@ const Manage = () => {
 												<SquarePen className="size-5" /> <span>Update</span>
 											</Button>
 										</NavLink>
-										<Button className="bg-red-600 flex gap-3">
+										<Button
+											onClick={() => onSubmit(product._id)}
+											className="bg-red-600 flex gap-3"
+										>
 											<Trash2 className="size-5" /> <span>Delete</span>
 										</Button>
 									</TableCell>
